@@ -705,8 +705,9 @@ class RepositoryLocal(Repository):
         artifactory,
         name,
         packageType=Repository.GENERIC,
-        dockerApiVersion=Repository.V1,
+        dockerApiVersion=Repository.V2,
         repoLayoutRef="maven-2-default",
+        maxUniqueTags=0
     ):
         super(RepositoryLocal, self).__init__(artifactory)
         self.name = name
@@ -715,6 +716,7 @@ class RepositoryLocal(Repository):
         self.repoLayoutRef = repoLayoutRef
         self.archiveBrowsingEnabled = True
         self.dockerApiVersion = dockerApiVersion
+        self.maxUniqueTags = maxUniqueTags
 
     def _create_json(self):
         """
@@ -740,6 +742,7 @@ class RepositoryLocal(Repository):
             "propertySets": [],
             "archiveBrowsingEnabled": self.archiveBrowsingEnabled,
             "yumRootDepth": 0,
+            "maxUniqueTags": self.maxUniqueTags
         }
         return data_json
 
